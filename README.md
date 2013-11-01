@@ -39,7 +39,7 @@ $container->register('my_mailer', 'Acme\HelloBundle\Mailer')
 ;
 ````
 
-There is also a web interface accessed via `index.php`.
+There is also a web interface accessed via `index.php`: http://sfdc.dantleech.com.
 
 ## Converters
 
