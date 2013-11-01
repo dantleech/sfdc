@@ -40,7 +40,9 @@ $context = $sfdc->run();
 foreach ($context->getFragments() as $format => $fragment) {
 ?>
 <?php echo $format."\n".str_repeat('-', strlen($format))."\n\n" ?>
-<?php echo $fragment ?>
+<?php echo $fragment['content'] ?>
 <?php echo "\n"; ?>
 <?php
 }
+
+exit(0);

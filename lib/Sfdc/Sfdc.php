@@ -38,16 +38,19 @@ class Sfdc
             }
         }
 
-        $winner = array(
-            'score' => 0,
-            'obj' => null
-        );
-
+        $winners = array();
         foreach ($converters as $converter) {
             $score = $converter->getScore();
 
-            if ($score > $winner['score']) {
-                $winner = array(
+            if (!isset($winners[$converter->getFormat()])) {
+                $winners[$converter->getFormat()] = array(
+                    'score' => 0,
+                    'obj' => null
+                );
+            }
+
+            if ($score > $winners[$converter->getFormat()]['score']) {
+                $winners[$converter->getFormat()] = array(
                     'score' => $converter->getScore(),
                     'obj' => $converter
                 );
@@ -55,14 +58,16 @@ class Sfdc
             }
         }
 
-        if (!$winner) {
-            throw new \Exception('Could not find converter candidate for XML document');
+        $context->add('xml', $dom->saveXml(), 'Original');
+
+        foreach ($winners as $format => $winner) {
+            if (!$winner['obj']) {
+                throw new \Exception('Could not find converter candidate for XML document');
+            }
+
+            $text = $winner['obj']->convert();
+            $context->add($format, $text, $winner['obj']->getFragmentDescription());
         }
-
-        $arrayRepresentation = $winner['obj']->convert();
-
-        $yaml = \Symfony\Component\Yaml\Yaml::dump($arrayRepresentation);
-        $context->add('yaml', $yaml);
 
 
         return $context;

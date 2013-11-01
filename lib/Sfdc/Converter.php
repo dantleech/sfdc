@@ -17,6 +17,8 @@ abstract class Converter
 
     abstract public function convert();
 
+    abstract public function getFragmentDescription();
+
     public function getDom()
     {
         return $this->dom;
@@ -29,4 +31,6 @@ abstract class Converter
     {
         return $this->xpath->query($xpath, $context);
     }
+
+    abstract public function getFormat();
 }

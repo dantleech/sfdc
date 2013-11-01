@@ -5,18 +5,23 @@ namespace Sfdc\Converter;
 use Sfdc\Context;
 use Sfdc\Converter;
 
-class ContainerConverter extends Converter
+class ConfigYamlConverter extends Converter
 {
     public function getScore()
     {
         $this->xpath->registerNamespace('services', 'http://symfony.com/schema/dic/services');
         $res = $this->query('/services:container');
 
-        if ($res) {
+        if ($res->length) {
             return 1;
         }
 
         return 0;
+    }
+
+    public function getFragmentDescription()
+    {
+        return 'Symfony Main Configuration';
     }
 
     public function convert()
@@ -43,7 +48,13 @@ class ContainerConverter extends Converter
             }
         }
 
+        $yaml = \Symfony\Component\Yaml\Yaml::dump($data, 4);
 
-        return $data;
+        return $yaml;
+    }
+
+    public function getFormat()
+    {
+        return 'yaml';
     }
 }

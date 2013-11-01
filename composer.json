@@ -9,8 +9,7 @@
         }
     ],
     "require": {
-        "symfony/yaml": "dev-master",
-        "symfony/filesystem": "dev-master"
+        "symfony/yaml": "dev-master"
     },
     "autoload": {
         "psr-0": { "": "lib" }
