@@ -1,8 +1,10 @@
 <?php
 
+namespace Sfdc;
+
 class Context
 {
-    protected $fragments;
+    protected $fragments = array();
 
     public function add($format, $content)
     {

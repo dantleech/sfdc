@@ -7,6 +7,6 @@
 
     <framework:config>
         <!-- ... -->
-        <framework:router resource="%kernel.root_dir%/config/routing.xml" />
+        <framework:router resource="%kernel.root_dir%/config/routing.xml" foo="bar"/>
     </framework:config>
 </container>

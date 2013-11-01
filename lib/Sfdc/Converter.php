@@ -1,6 +1,8 @@
 <?php
 
-class Processor
+namespace Sfdc;
+
+abstract class Converter
 {
     protected $dom;
     protected $xpath;
@@ -10,6 +12,10 @@ class Processor
         $this->dom = $dom;
         $this->xpath = new \DOMXPath($dom);
     }
+
+    abstract public function getScore();
+
+    abstract public function convert();
 
     public function getDom()
     {

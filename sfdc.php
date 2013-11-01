@@ -3,7 +3,7 @@
  * Sfdc CLI client
  * @author Daniel Leech <daniel@dantleech.com>
  */
-require(__DIR__.'/lib/lib.php');
+require(__DIR__.'/vendor/autoload.php');
 
 if (!isset($argv[1])) {
     die(<<<HERE
@@ -34,7 +34,7 @@ if (!file_exists($file)) {
 
 $contents = file_get_contents($file);
 
-$sfdc = new Sfdc($contents);
+$sfdc = new Sfdc\Sfdc($contents);
 $context = $sfdc->run();
 
 foreach ($context->getFragments() as $format => $fragment) {
