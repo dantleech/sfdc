@@ -2,33 +2,8 @@
 
 namespace Sfdc\Converter;
 
-use Sfdc\Context;
-use Sfdc\Converter;
-
-class ContainerPhpConverter extends Converter
+class ContainerPhpConverter extends AbstractContainerConverter
 {
-    public function getScore()
-    {
-        $this->xpath->registerNamespace('services', 'http://symfony.com/schema/dic/services');
-        $res = $this->query('/services:container/*[local-name()="services"]');
-
-        if ($res->length) {
-            return 2;
-        }
-
-        return 0;
-    }
-
-    public function getFormat()
-    {
-        return 'php';
-    }
-
-    public function getFragmentDescription()
-    {
-        return 'Symfony Service Container';
-    }
-
     public function convert()
     {
         $lines = array();
@@ -100,5 +75,10 @@ class ContainerPhpConverter extends Converter
             $line = str_repeat(' ', $indent).$line;
             $lines[] = $line;
         }
+    }
+
+    public function getFormat()
+    {
+        return 'php';
     }
 } 

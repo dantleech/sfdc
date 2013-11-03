@@ -26,10 +26,9 @@ class Sfdc
         $dom->loadXml($this->xmlFragment);
 
         $converters = array();
-        $context = new Context;
+        $context = new Context();
 
         $res = opendir(__DIR__.'/Converter');
-
 
         while ($filename = readdir($res)) {
             if (preg_match('&(.*Converter).php$&', $filename, $matches)) {
@@ -45,23 +44,20 @@ class Sfdc
             if (!isset($winners[$converter->getFormat()])) {
                 $winners[$converter->getFormat()] = array(
                     'score' => 0,
-                    'obj' => null
+                    'obj' => null,
                 );
-            }
-
-            if ($score > $winners[$converter->getFormat()]['score']) {
+            } elseif ($score > $winners[$converter->getFormat()]['score']) {
                 $winners[$converter->getFormat()] = array(
                     'score' => $converter->getScore(),
-                    'obj' => $converter
+                    'obj' => $converter,
                 );
-                continue;
             }
         }
 
         $context->add('xml', $dom->saveXml(), 'Original');
 
         foreach ($winners as $format => $winner) {
-            if (!$winner['obj']) {
+            if (!isset($winner['obj'])) {
                 throw new \Exception('Could not find converter candidate for XML document');
             }
 

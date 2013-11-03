@@ -2,7 +2,6 @@
 
 namespace Sfdc\Converter;
 
-use Sfdc\Context;
 use Sfdc\Converter;
 
 class ConfigYamlConverter extends Converter
